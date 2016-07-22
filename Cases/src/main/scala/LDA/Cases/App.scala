@@ -141,8 +141,8 @@ object App {
     
     // Connect to OracleDB and get case data
     val query = "(select to_char(tnl.objid) as ID, replace(tc.id_number,'-T') as CID, tsite.NAME as CUSTOMER, tc.x_product_series || '--' || tc.x_platform as JHW, tc.x_swrelease_maj as JSW, tc.X_PR_NUMBER ||'--'||tc.X_KB_ID as NUMBERS, tc.X_CASE_CAUSE || '--' || tc.X_CASE_SUBCAUSE as CAUSE, tc.CASE_HISTORY as HISTORY, tu.login_name as CSOWN, tc.title as TITLE, tnl.description as DES, tnl.Internal as Internal from table_notes_log tnl, table_case tc , table_site tsite, table_user tu, table_condition cd where tc.X_CASE_CLASS = 'Support' and tc.x_product_series in ('E-Series', 'EX-Series', 'M-Series', 'MX-Series', 'SRX-Series') and tnl.case_notes2case = tc.objid and tc.id_number like '2014-0202-B%' and tsite.objid = tc.case_reporter2site and tu.objid = tc.case_owner2user and cd.objid = tc.CASE_STATE2CONDITION) t1"
-    val serverIP = "jdbc:oracle:thin:savw/savw@//10.99.81.100:1521/OETCLR"
-    val server = "jdbc:oracle:thin:savw/savw@//erptest-clarify-db01-v.jnpr.net:1521/OETCLR"
+    val serverIP = "jdbc:oracle:thin:savw/savw@//<ip address>/<database>"
+    val server = "jdbc:oracle:thin:savw/savw@//<hostname:port>/<database>"
     val driver = "oracle.jdbc.OracleDriver"
     val data = sqlContext.load(source = "jdbc", Map("driver" -> driver, "url" -> serverIP, "dbtable" -> query))  
     println("data row count: " + data.count())
