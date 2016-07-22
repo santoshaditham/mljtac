@@ -1,0 +1,44 @@
+####SPARK build
+mvn -Pyarn -Phadoop -Dhadoop.version=2.6.0-cdh5.4.2 -Dscala-2.11 -DskipTests clean package
+
+####PHOENIX build
+sudo cp ./phoenix-<version>-server.jar /usr/lib/hbase/lib/
+sudo service hbase-regionserver restart
+sudo service hbase-master restart
+
+####ZOOKEEPER max connections
+sudo vi /etc/zookeeper/conf/zoo.cfg
+sudo service zookeeper-server stop/start
+
+####KAFKA produce for KafSpa
+bin/zookeeper-server-start.sh config/zookeeper.properties
+bin/kafka-server-start.sh config/server.properties
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+
+####SPARK receive for KafSpa
+mvn clean package -Dmaven.test.skip=true
+bin/spark-submit \
+--master local \
+--class KafSpa.Kafka_Spark.KafSpa \
+/home/cloudera/workspace/KafSpa/Kafka_Spark/target/Kafka_Spark-0.0.1-SNAPSHOT-jar-with-dependencies.jar localhost:9092 localhost:2181 test
+
+####SPARK submit for Cases
+mvn clean package -Dmaven.test.skip=true
+spark-submit  --class LDA.Cases.App  --driver-class-path ojdbc14.jar  --master spark://quickstart.cloudera:7077  --verbose  target/Cases-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+
+####SPARK executor and driver
+sudo /usr/lib/spark/sbin/stop-all.sh
+/etc/spark/conf/spark-defaults.conf
+spark.driver.memory 2g
+/etc/spark/conf/spark-env.sh
+export SPARK_DRIVER_MEMORY 2G
+export SPARK_WORKER_MEMORY 2G
+export SPARK_EXECUTOR_MEMORY 2G
+sudo /usr/lib/spark/sbin/start-master.sh
+
+####BITBUCKET
+git add *
+git commit -m "whatever"
+git push origin master
+

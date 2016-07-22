@@ -1,0 +1,16 @@
+<something> but <something>
+<something> problem <something>
+<something> not <working>
+<something> error <something>
+<something> losing connectivity <something>
+<something> generating high traffic <reason>
+<something> faulty <something>
+<something> crashed <something>
+<something> went down <something>
+<something> eventhough <something>
+<something> stop <something>
+<something> unable <do-something>
+<something> failed <to-do-something>
+<something> lost <something>
+<some> loss <with-something>
+<some> outage <affects>

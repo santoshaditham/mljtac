@@ -1,0 +1,16 @@
+<something> resolved <problem>
+<> resolution <is this>
+<> workaround <is this>
+<something> completed <successfully>
+<something> reopened <case>
+<someone> suggested <something>
+<someone> processed <something>
+<someone> provided <something>
+<someone> confirmed <something>
+<something> closure <something>
+<something> working <now>
+<something> fixed <now>
+<something> action plan <something>
+<something> rma <something>
+<something> bug <something>
+<something> replaced <something>
