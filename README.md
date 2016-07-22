@@ -1,5 +1,3 @@
-# README #
-
 # Cases  
 Gets case history from database, prunes it, cleanses it, applies NLP & ML to find relations betweens cases that aren't evident
 
